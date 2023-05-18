@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "my-nextron-app",
+  "name": "FileGO",
   "description": "My application description",
   "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "author": "FileGO Team",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
@@ -11,8 +11,17 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "electron-serve": "^1.1.0",
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "firebase": "8.9",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.1.1",
+    "react-firebase-hooks":  "^3.0.4",
+    "styled-components": "^6.0.0-rc.1"
   },
   "devDependencies": {
     "electron": "^21.3.3",
