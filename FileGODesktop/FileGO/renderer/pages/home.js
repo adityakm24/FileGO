@@ -1,55 +1,41 @@
-// renderer/home.js
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import firebase from "firebase/app";
 import { auth, googleProvider, db } from "../firebase";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const [user, loading, error] = useAuthState(auth);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
 
   useEffect(() => {
     if (user) {
-      const userRef = db.ref(`users/${user.uid}`);
-      userRef.set({
-        displayName: user.displayName,
-        email: user.email,
-      });
+      router.push("/dashboard");
     }
-  }, [user]);
+  }, [user, router]);
 
   const handleGoogleSignIn = async () => {
     try {
-      await auth.signInWithPopup(googleProvider);
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" }); // Force account selection
+      await auth.signInWithPopup(provider);
+      router.push("/dashboard");
     } catch (error) {
-      setErrorMessage("An error occurred during sign-in.");
-      console.error(error);
+      console.error("Error signing in:", error);
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      setErrorMessage("An error occurred during sign-out.");
-      console.error(error);
-    }
-  };
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : user ? (
-        <div>
-          <p>Welcome, {user.displayName}</p>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </div>
+      <h1>Welcome to the Home Page</h1>
+      {user ? (
+        <p>Redirecting...</p>
       ) : (
-        <div>
-          <p>Sign up using:</p>
-          <button onClick={handleGoogleSignIn}>Google</button>
-          {errorMessage && <p>{errorMessage}</p>}
-        </div>
+        <button onClick={handleGoogleSignIn}>Sign in with Google</button>
       )}
     </div>
   );
