@@ -1,7 +1,6 @@
 import { app } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
-import connectDB from "../utils/db";
 
 const isProd = process.env.NODE_ENV === "production";
 
