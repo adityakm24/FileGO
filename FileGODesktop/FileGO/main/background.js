@@ -13,8 +13,6 @@ if (isProd) {
 (async () => {
   await app.whenReady();
 
-  // Connect to the database
-  connectDB();
 
   const mainWindow = createWindow("main", {
     width: 1000,
