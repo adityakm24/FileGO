@@ -64,15 +64,13 @@ export default function Dashboard() {
       <nav className={styles.navbar}>
         <div className={styles.logo}>Logo</div>
         <div className={styles.profile} onClick={handleDropdownToggle}>
-          {user.photoURL && (
-            <img
-              src={user.photoURL}
-              alt="Profile"
-              className={styles.profilePhoto}
-              width={100}
-              height={100}
-            />
-          )}
+          <img
+            src={user.photoURL}
+            alt="Profile"
+            className={styles.profilePhoto}
+            width={100}
+            height={100}
+          />
 
           {isDropdownOpen && (
             <div className={styles.dropdown}>
@@ -93,7 +91,7 @@ export default function Dashboard() {
           )}
         </div>
       </nav>
-      <h1 className={styles.title}>Welcome to the Dashboard</h1>
+      <h1 className={styles.title}>Welcome to the Settings</h1>
       <p className={styles.user}>User: {user.displayName}</p>
       {/* Display additional user data from the database */}
       <p className={styles.userData}>Email: {user.email}</p>
@@ -103,7 +101,7 @@ export default function Dashboard() {
       <button className={styles.button} onClick={handleSignOut}>
         Sign Out
       </button>
-      <Link href="/home">
+      <Link href="/dashboard">
         <a className={styles.link}>Go to Home</a>
       </Link>
     </div>
